@@ -1,0 +1,29 @@
+services:
+  proxy:
+    build: .
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh
+      - ./conf:/etc/caddy
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    secrets:
+      - cf_zone_read_token
+      - cf_dns_edit_token
+    entrypoint: /entrypoint.sh
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+secrets:
+  cf_zone_read_token:
+    file: secrets/cf_zone_read_token
+  cf_dns_edit_token:
+    file: secrets/cf_dns_edit_token
