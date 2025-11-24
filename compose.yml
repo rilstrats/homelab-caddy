@@ -1,6 +1,7 @@
 services:
   caddy:
-    build: .
+    image: caddy:2.10
+    # build: .
     restart: unless-stopped
     # cap_add:
     #   - NET_ADMIN
