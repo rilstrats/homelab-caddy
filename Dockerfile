@@ -1,7 +1,8 @@
-FROM caddy:2.9-builder-alpine AS builder
-RUN xcaddy build --with github.com/caddy-dns/cloudflare
+FROM caddy:2.10-builder AS builder
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    xcaddy build \
+    --with github.com/caddy-dns/cloudflare
 
-FROM caddy:2.9-alpine
+FROM caddy:2.10
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
-
-EXPOSE 80 443
