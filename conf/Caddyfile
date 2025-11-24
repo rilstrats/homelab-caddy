@@ -1,5 +1,5 @@
 cloud.rilstrats.net {
-    reverse_proxy https://cloud.rilstrats.net
+    reverse_proxy :11000
     # tls {
     #     dns cloudflare {env.CF_API_TOKEN}
     # }
